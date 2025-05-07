@@ -1,0 +1,23 @@
+services:
+  neo4j:
+    build:
+      context: ./neo4jdb
+      dockerfile: Dockerfile
+    container_name: neo4jdb
+    volumes:
+        - /$HOME/neo4j/logs:/logs
+        - /$HOME/neo4j/config:/config
+        - /$HOME/neo4j/data:/data
+        - /$HOME/neo4j/plugins:/plugins
+
+    env_file:
+      - ./neo4jdb/neo4j.env
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    restart: on-failure
+    networks:
+      - net
+
+networks:
+  net:
